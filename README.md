@@ -1,36 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Reflink Merchant Demo
 
-## Getting Started
+A demo store implementation showcasing the Reflink affiliate marketing platform on Solana. This project demonstrates how merchants can integrate with the Reflink protocol to enable decentralized affiliate marketing on their e-commerce platforms.
 
-First, run the development server:
+## 🚀 Features
+
+- Next.js 15 with App Router
+- Solana Wallet Integration
+- Modern UI with Tailwind CSS
+- React Query for Data Management
+- Dark Mode Support
+- TypeScript Support
+- Reflink Protocol Integration
+- Affiliate Marketing Capabilities
+
+## 🛠️ Tech Stack
+
+- **Frontend Framework:** Next.js 15.2
+- **Blockchain:** Solana (@solana/web3.js, @coral-xyz/anchor)
+- **Styling:** Tailwind CSS
+- **State Management:** TanStack Query (React Query)
+- **UI Components:** Radix UI
+- **Package Manager:** pnpm
+- **Development Tools:**
+  - TypeScript
+  - ESLint
+  - TurboRepo
+
+## 📦 Prerequisites
+
+- Node.js 18 or higher
+- pnpm 10.10.0 or higher
+- Solana CLI tools (optional for blockchain development)
+
+## 🚀 Getting Started
+
+1. **Clone the repository**
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd reflink-merchant-demo
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Install dependencies**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. **Start the development server**
 
-## Learn More
+```bash
+pnpm dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+The application will be available at [http://localhost:3000](http://localhost:3000).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🏗️ Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+├── app/                  # Next.js app directory
+├── components/           # React components
+├── hooks/               # Custom React hooks
+├── lib/                 # Utility functions and shared logic
+├── anchor-idl/          # Solana program interfaces
+└── public/              # Static assets
+```
 
-## Deploy on Vercel
+## 🔧 Available Scripts
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `pnpm dev` - Start development server with Turbopack
+- `pnpm build` - Build production application
+- `pnpm start` - Start production server
+- `pnpm lint` - Run ESLint
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🌐 Deployment
+
+This application can be deployed on Vercel with zero configuration. For other platforms, build the application using:
+
+```bash
+pnpm build
+```
+
+Then start the production server:
+
+```bash
+pnpm start
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
