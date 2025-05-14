@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { PublicKey, LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { toast } from "sonner";
 import { BN } from "@coral-xyz/anchor";
+import { useQueryClient } from "@tanstack/react-query";
 
 // Sample products
 const products = [
@@ -43,6 +44,7 @@ export default function Home() {
   const searchParams = useSearchParams();
   const affiliateAddress = searchParams.get("ref");
   const processPurchase = useProcessPurchase();
+  const queryClient = useQueryClient();
 
   const handlePurchase = async (productId: number) => {
     if (!connected) {
@@ -68,6 +70,8 @@ export default function Home() {
         affiliateAuthority: new PublicKey(affiliateAddress),
       });
 
+      // Invalidate balance query to trigger immediate refresh
+      queryClient.invalidateQueries({ queryKey: ["balance"] });
       toast.success("Purchase successful!");
     } catch (error) {
       console.error("Purchase error:", error);
