@@ -9,6 +9,8 @@ import { PublicKey, LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { toast } from "sonner";
 import { BN } from "@coral-xyz/anchor";
 import { useQueryClient } from "@tanstack/react-query";
+import { Suspense } from "react";
+import Image from "next/image";
 
 // Sample products
 const products = [
@@ -39,6 +41,14 @@ const products = [
 const MERCHANT_ADDRESS = "7VmTfGAKXbFCwjJsamN92X1kFobgPMdp9VbUT3LswGnW";
 
 export default function Home() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HomeContent />
+    </Suspense>
+  );
+}
+
+function HomeContent() {
   const { connected } = useWallet();
   const { setVisible } = useWalletModal();
   const searchParams = useSearchParams();
@@ -94,11 +104,14 @@ export default function Home() {
             key={product.id}
             className="bg-gray-800 rounded-lg overflow-hidden shadow-lg"
           >
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-full h-48 object-cover"
-            />
+            <div className="relative w-full h-48">
+              <Image
+                src={product.image}
+                alt={product.name}
+                fill
+                className="object-cover"
+              />
+            </div>
             <div className="p-6">
               <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
               <p className="text-gray-400 mb-4">{product.description}</p>
