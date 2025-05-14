@@ -9,8 +9,9 @@ import { PublicKey, LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { toast } from "sonner";
 import { BN } from "@coral-xyz/anchor";
 import { useQueryClient } from "@tanstack/react-query";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import Image from "next/image";
+import { MerchantConfig } from "./components/MerchantConfig";
 
 // Sample products
 const products = [
@@ -37,9 +38,6 @@ const products = [
   },
 ];
 
-// Merchant address
-const MERCHANT_ADDRESS = "7VmTfGAKXbFCwjJsamN92X1kFobgPMdp9VbUT3LswGnW";
-
 export default function Home() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -55,6 +53,9 @@ function HomeContent() {
   const affiliateAddress = searchParams.get("ref");
   const processPurchase = useProcessPurchase();
   const queryClient = useQueryClient();
+  const [merchantAddress, setMerchantAddress] = useState(
+    "7VmTfGAKXbFCwjJsamN92X1kFobgPMdp9VbUT3LswGnW"
+  );
 
   const handlePurchase = async (productId: number) => {
     if (!connected) {
@@ -76,7 +77,7 @@ function HomeContent() {
 
       await processPurchase.mutateAsync({
         amount: lamports,
-        merchantAuthority: new PublicKey(MERCHANT_ADDRESS),
+        merchantAuthority: new PublicKey(merchantAddress),
         affiliateAuthority: new PublicKey(affiliateAddress),
       });
 
@@ -91,43 +92,51 @@ function HomeContent() {
 
   return (
     <div className="py-8">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Reflink Store</h1>
-        <p className="text-gray-400">
-          Purchase our premium courses and support your favorite affiliate
-        </p>
-      </div>
+      <div className="container mx-auto px-4">
+        <MerchantConfig
+          currentAddress={merchantAddress}
+          onAddressChange={setMerchantAddress}
+        />
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold mb-4">Welcome to Reflink Store</h1>
+          <p className="text-gray-400">
+            Purchase our premium courses and support your favorite affiliate
+          </p>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {products.map((product) => (
-          <div
-            key={product.id}
-            className="bg-gray-800 rounded-lg overflow-hidden shadow-lg"
-          >
-            <div className="relative w-full h-48">
-              <Image
-                src={product.image}
-                alt={product.name}
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="p-6">
-              <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
-              <p className="text-gray-400 mb-4">{product.description}</p>
-              <div className="flex items-center justify-between">
-                <span className="text-2xl font-bold">{product.price} SOL</span>
-                <Button
-                  onClick={() => handlePurchase(product.id)}
-                  disabled={processPurchase.isPending}
-                  className="bg-indigo-500 hover:bg-indigo-600"
-                >
-                  {processPurchase.isPending ? "Processing..." : "Buy Now"}
-                </Button>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {products.map((product) => (
+            <div
+              key={product.id}
+              className="bg-gray-800 rounded-lg overflow-hidden shadow-lg"
+            >
+              <div className="relative w-full h-48">
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
+                <p className="text-gray-400 mb-4">{product.description}</p>
+                <div className="flex items-center justify-between">
+                  <span className="text-2xl font-bold">
+                    {product.price} SOL
+                  </span>
+                  <Button
+                    onClick={() => handlePurchase(product.id)}
+                    disabled={processPurchase.isPending}
+                    className="bg-indigo-500 hover:bg-indigo-600"
+                  >
+                    {processPurchase.isPending ? "Processing..." : "Buy Now"}
+                  </Button>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
