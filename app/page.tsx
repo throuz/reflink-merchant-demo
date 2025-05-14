@@ -10,7 +10,6 @@ import { toast } from "sonner";
 import { BN } from "@coral-xyz/anchor";
 import { useQueryClient } from "@tanstack/react-query";
 import { Suspense, useState } from "react";
-import Image from "next/image";
 import { MerchantConfig } from "./components/MerchantConfig";
 
 // Sample products
@@ -111,11 +110,10 @@ function HomeContent() {
               className="bg-gray-800 rounded-lg overflow-hidden shadow-lg"
             >
               <div className="relative w-full h-48">
-                <Image
+                <img
                   src={product.image}
                   alt={product.name}
-                  fill
-                  className="object-cover"
+                  className="w-full h-full object-cover"
                 />
               </div>
               <div className="p-6">

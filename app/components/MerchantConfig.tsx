@@ -24,6 +24,7 @@ export function MerchantConfig({
       setIsEditing(false);
       toast.success("Merchant address updated successfully");
     } catch (error) {
+      console.error(error);
       toast.error("Invalid Solana address");
     }
   };
