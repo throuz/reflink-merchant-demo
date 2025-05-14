@@ -5,8 +5,9 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { useProcessPurchase } from "@/components/counter/hooks/useReflink";
 import { Button } from "@/components/ui/button";
-import { PublicKey } from "@solana/web3.js";
+import { PublicKey, LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { toast } from "sonner";
+import { BN } from "@coral-xyz/anchor";
 
 // Sample products
 const products = [
@@ -58,8 +59,11 @@ export default function Home() {
       const product = products.find((p) => p.id === productId);
       if (!product) return;
 
+      // Convert SOL to lamports using BN
+      const lamports = new BN(product.price * LAMPORTS_PER_SOL);
+
       await processPurchase.mutateAsync({
-        amount: product.price,
+        amount: lamports,
         merchantAuthority: new PublicKey(MERCHANT_ADDRESS),
         affiliateAuthority: new PublicKey(affiliateAddress),
       });
