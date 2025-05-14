@@ -1,13 +1,9 @@
 import { Metadata } from "next";
-
 import { Inter } from "next/font/google";
 import { BaseLayout } from "@/components/layouts/BaseLayout";
 import { Toaster } from "@/components/ui/toast";
-
 import Providers from "./providers";
-
 import "@solana/wallet-adapter-react-ui/styles.css";
-
 import "./globals.css";
 
 const inter = Inter({
@@ -16,9 +12,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Reflink | Direct Merchant-Affiliate Platform on Solana",
-  description:
-    "Connect merchants and affiliates directly with automated commission distribution and instant SOL payouts on Solana",
+  title: "Reflink Merchant Demo",
+  description: "Demo store for Reflink affiliate marketing platform on Solana",
 };
 
 export default function RootLayout({
