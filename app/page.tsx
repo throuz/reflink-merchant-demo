@@ -52,13 +52,16 @@ function HomeContent() {
   const affiliateAddress = searchParams.get("ref");
   const processPurchase = useProcessPurchase();
   const queryClient = useQueryClient();
-  const [merchantAddress, setMerchantAddress] = useState(
-    "7VmTfGAKXbFCwjJsamN92X1kFobgPMdp9VbUT3LswGnW"
-  );
+  const [merchantAddress, setMerchantAddress] = useState("");
 
   const handlePurchase = async (productId: number) => {
     if (!connected) {
       setVisible(true);
+      return;
+    }
+
+    if (!merchantAddress) {
+      toast.error("Merchant address is not set. Please configure it first.");
       return;
     }
 
@@ -125,7 +128,7 @@ function HomeContent() {
                   </span>
                   <Button
                     onClick={() => handlePurchase(product.id)}
-                    disabled={processPurchase.isPending}
+                    disabled={processPurchase.isPending || !merchantAddress}
                     className="bg-indigo-500 hover:bg-indigo-600"
                   >
                     {processPurchase.isPending ? "Processing..." : "Buy Now"}
